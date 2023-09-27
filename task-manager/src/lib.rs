@@ -16,7 +16,13 @@ impl Task {
     }
 
     pub fn complete(&mut self) {
-        self.completed_at = Some(SystemTime::now())
+        match self.completed_at {
+            None =>self.completed_at = Some(SystemTime::now()),
+            x => self.completed_at = x
+        }
+    }
+    pub fn uncomplete(&mut self) {
+        self.completed_at = None
     }
 }
 
@@ -32,11 +38,31 @@ mod tests {
         assert_eq!(task.description, "".to_string());
         assert_eq!(task.completed_at, None)
     }
+
     #[test]
     fn it_completes_a_task(){
         let expected_title = String::from("new Task");
         let mut task = Task::new(expected_title.clone());
         task.complete();
         assert_ne!(task.completed_at, None)
+    }
+
+    #[test]
+    fn it_uncompletes_a_task(){
+        let expected_title = String::from("new Task");
+        let mut task = Task::new(expected_title.clone());
+        task.complete();
+        task.uncomplete();
+        assert_eq!(task.completed_at, None)
+    }
+
+    #[test]
+    fn it_does_not_set_completes_mulitple_times(){
+        let expected_title = String::from("new Task");
+        let mut task = Task::new(expected_title.clone());
+        task.complete();
+        let expected_completed = task.completed_at;
+        task.complete();
+        assert_eq!(task.completed_at, expected_completed)
     }
 }
