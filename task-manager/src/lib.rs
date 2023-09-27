@@ -3,7 +3,7 @@ use std::time::SystemTime;
 struct Task {
     title: String,
     description: String,
-    completed_at: Option<SystemTime>
+    completed_at: Option<SystemTime>,
 }
 
 impl Task {
@@ -17,7 +17,7 @@ impl Task {
 
     pub fn complete(&mut self) {
         match self.completed_at {
-            None =>self.completed_at = Some(SystemTime::now()),
+            None => self.completed_at = Some(SystemTime::now()),
             x => self.completed_at = x
         }
     }
@@ -40,7 +40,7 @@ mod tests {
     }
 
     #[test]
-    fn it_completes_a_task(){
+    fn it_completes_a_task() {
         let expected_title = String::from("new Task");
         let mut task = Task::new(expected_title.clone());
         task.complete();
@@ -48,7 +48,7 @@ mod tests {
     }
 
     #[test]
-    fn it_uncompletes_a_task(){
+    fn it_uncompletes_a_task() {
         let expected_title = String::from("new Task");
         let mut task = Task::new(expected_title.clone());
         task.complete();
@@ -57,7 +57,7 @@ mod tests {
     }
 
     #[test]
-    fn it_does_not_set_completes_mulitple_times(){
+    fn it_does_not_set_completes_mulitple_times() {
         let expected_title = String::from("new Task");
         let mut task = Task::new(expected_title.clone());
         task.complete();
