@@ -1,5 +1,5 @@
 [package]
-name = "task-manager"
+name = "seybio-task-manager"
 version = "0.1.0"
 edition = "2021"
 description = "This lib provides a struc to manage Tasks (ie. for Todo apps)"
