@@ -1,10 +1,12 @@
 use std::time::SystemTime;
 
-struct Task {
+#[derive(PartialEq)]
+pub struct Task {
     title: String,
     description: String,
     completed_at: Option<SystemTime>,
 }
+
 
 impl Task {
     pub fn new(title: String) -> Self {
@@ -26,9 +28,44 @@ impl Task {
     }
 }
 
+
+pub trait Collection {
+    type Task;
+
+    fn new () -> Self;
+    fn add_task(&mut self, task: Self::Task);
+    fn remove_task(&mut self, task: Self::Task);
+    fn get_all_tasks(&self) -> &Vec<Self::Task>;
+}
+
+pub struct TaskCollection {
+    tasks: Vec<Task>,
+}
+
+impl Collection for TaskCollection {
+    type Task = Task;
+
+    fn new() -> Self {
+        Self {
+            tasks: vec![]
+        }
+    }
+    fn add_task(&mut self, task: Self::Task) {
+        self.tasks.push(task);
+    }
+
+    fn remove_task(&mut self, task: Self::Task){
+        self.tasks.retain(|t| *t != task);
+    }
+
+    fn get_all_tasks(&self) -> &Vec<Self::Task> {
+        &self.tasks
+    }
+}
+
 #[cfg(test)]
 mod tests {
-    use crate::Task;
+    use crate::{Collection, Task, TaskCollection};
 
     #[test]
     fn it_inits_task() {
@@ -64,5 +101,11 @@ mod tests {
         let expected_completed = task.completed_at;
         task.complete();
         assert_eq!(task.completed_at, expected_completed)
+    }
+
+    #[test]
+    fn inits_empty_task_collection() {
+        let collection = TaskCollection::new();
+        assert_eq!(collection.tasks.is_empty(), true)
     }
 }
