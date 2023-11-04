@@ -15,13 +15,11 @@ async fn main() {
         // `POST /users` goes to `create_user`
         .route("/users", post(create_user));
     // run it with hyper on localhost:3000
-    axum::Server::bind(&"0.0.0.0:3000".parse().unwrap())
+    axum::Server::bind(&"0.0.0.0:3001".parse().unwrap())
         .serve(app.into_make_service())
         .await
         .unwrap();
 }
-
-
 
 // basic handler that responds with a static string
 async fn root() -> &'static str {

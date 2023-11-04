@@ -31,7 +31,6 @@ impl Task {
 
 pub trait Collection {
     type Task;
-
     fn new () -> Self;
     fn add_task(&mut self, task: Self::Task);
     fn remove_task(&mut self, task: Self::Task);
