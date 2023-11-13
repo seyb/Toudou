@@ -1,8 +1,8 @@
 [package]
 name = "seybio-task-manager"
-version = "0.1.1"
+version = "0.2.0"
 edition = "2021"
-description = "This lib provides a struc to manage Tasks (ie. for Todo apps)"
+description = "This lib provides some structs to manage Tasks and task collections(ie. for Todo apps)"
 license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

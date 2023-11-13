@@ -1,5 +1,6 @@
 use std::time::SystemTime;
 
+/// Represents a task with a title, description, and completion status.
 #[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Debug, PartialEq, Clone)]
 pub struct Task {
@@ -28,6 +29,44 @@ impl Task {
     }
 }
 
+/// A trait representing a collection of tasks.
+///
+/// The `Collection` trait provides methods for managing tasks in a collection.
+/// It is a generic trait, allowing different implementations to work with different types of tasks.
+///
+/// # Examples
+///
+/// ```rust
+/// use seybio_task_manager::Collection;
+///
+/// struct Task {
+///     // task fields
+/// }
+///
+/// struct MyCollection {
+///     tasks: Vec<Task>,
+/// }
+///
+/// impl Collection for MyCollection {
+///     type Task = Task;
+///
+///     fn new() -> Self {
+///         MyCollection {
+///             tasks: Vec::new(),
+///         }
+///     }
+///
+///     fn add_task(&mut self, task: Self::Task) {
+///         self.tasks.push(task);
+///     }
+///
+///     fn remove_task(&mut self, task: Self::Task) {
+///         if let Some(index) = self.tasks.iter().position(|t| t == &task) {
+///             self.tasks.remove(index);
+///         }
+///     }
+/// }
+/// ```
 pub trait Collection {
     type Task;
     fn new() -> Self;
@@ -35,6 +74,21 @@ pub trait Collection {
     fn remove_task(&mut self, task: Self::Task);
 }
 
+/// TaskCollection struct represents a collection of tasks.
+///
+/// # Fields
+/// - `tasks`: A vector of `Task` objects.
+///
+/// # Example
+/// ```
+/// use serde::{Serialize, Deserialize};
+/// use seybio_task_manager::Task;
+///
+/// #[cfg_attr(feature = "serialize", derive(Serialize, Deserialize))]
+/// pub struct TaskCollection {
+///     pub tasks: Vec<Task>,
+/// }
+/// ```
 #[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub struct TaskCollection {
     pub tasks: Vec<Task>,
