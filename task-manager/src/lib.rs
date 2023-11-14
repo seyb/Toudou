@@ -37,11 +37,7 @@ impl Task {
 /// # Examples
 ///
 /// ```rust
-/// use seybio_task_manager::Collection;
-///
-/// struct Task {
-///     // task fields
-/// }
+/// use seybio_task_manager::{Collection, Task};
 ///
 /// struct MyCollection {
 ///     tasks: Vec<Task>,
