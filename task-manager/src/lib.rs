@@ -1,6 +1,6 @@
 use std::time::SystemTime;
 
-/// Represents a task with a title, description, and completion status.
+
 #[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Debug, PartialEq, Clone)]
 pub struct Task {
